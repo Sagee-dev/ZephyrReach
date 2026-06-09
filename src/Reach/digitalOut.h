@@ -4,14 +4,15 @@
 #include "zephyr/drivers/gpio.h"
 #include <zephyr/device.h>
 
-class DigitalOut : public ReachComponent{
+class DigitalOut{
     public:
         DigitalOut(const struct gpio_dt_spec *iPin);
-        int init()override;
-        int read(int *oStatus) override;
-        int write(int *icommand)override;
+        int init();
+        int read(int *oStatus) ;
+        int write(int *icommand);
     private:
         const struct gpio_dt_spec *mPin;
+        
 
 };
 #endif
