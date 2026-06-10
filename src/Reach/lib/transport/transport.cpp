@@ -2,10 +2,6 @@
 #include "zephyr/sys/printk.h"
 #include <zephyr/kernel.h>
 
-#define TRANSPORT_STACK_SIZE 2048
-#define TRANSPORT_THREAD_PRIORITY 5
-K_THREAD_STACK_DEFINE(transport_stack, TRANSPORT_STACK_SIZE);
-static struct k_thread transport_tid;
 
 Transport::Transport() {}
 
@@ -24,9 +20,4 @@ void Transport::get_command_transport(void *arg1, void *arg2, void *arg3) {
   k_msleep(10);
 }
 
-void Transport::init() {
-  k_thread_create(&transport_tid, transport_stack,
-                  K_THREAD_STACK_SIZEOF(transport_stack),
-                  Transport::get_command_transport, this, NULL, NULL,
-                  TRANSPORT_THREAD_PRIORITY, 0, K_NO_WAIT);
-}
+

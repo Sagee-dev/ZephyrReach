@@ -1,4 +1,4 @@
-#include "../../../digitalOut.h"
+#include "../../digitalOut.h"
 #include <zephyr/drivers/gpio.h>
 
 DigitalOut::DigitalOut(const struct gpio_dt_spec *iPin)

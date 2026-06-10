@@ -8,4 +8,7 @@ src/main.cpp
 src/Reach/reachDevice.cpp
 src/Reach/lib/transport/transport.cpp
 src/Reach/lib/transport/uartConnection.cpp
+src/Reach/lib/digitalOut/digitalOut.cpp
+src/Reach/lib/digitalOut/reachDigitalOut.cpp
+
 )

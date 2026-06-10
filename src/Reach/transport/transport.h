@@ -8,9 +8,8 @@ class Transport {
 public:
   Transport();
   static void get_command_transport(void *arg1, void *arg2, void *arg3);
-  int process_command();
-  int set_response_transport();
-  void init();
+  int send_response_transport();
+ 
   virtual int get_command(char *oBuf, int *olen) { return 0; }
   virtual int send_response() { return 0; }
 

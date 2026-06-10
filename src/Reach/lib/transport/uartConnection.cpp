@@ -4,8 +4,7 @@
 #include <string.h>
 #include <zephyr/kernel.h>
 
-#define RX_BUF_MAX 256
-#define TX_BUF_MAX 256
+
 
 uint8_t uaratRxBuf;
 UartConnection::UartConnection(const device *dev)
