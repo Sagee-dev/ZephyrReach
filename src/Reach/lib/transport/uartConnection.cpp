@@ -32,6 +32,11 @@ int UartConnection::get_command(char *oBuf, int *oLen){
     return 0;
 }
 
-int UartConnection::send_response(){
+int UartConnection::send_response(char *iBuf,int iLen){
+    int responseLen = 0;
+    while(iLen>responseLen){
+        uart_poll_out(mDev,iBuf[responseLen++]);
+    }
+    responseLen=0;
     return 0;
 }

@@ -26,6 +26,8 @@ int main(){
     digitalOutComponent.add_component(&led);
     mainDevice.add_component(&digitalOutComponent);
 
+    mainDevice.init();
+
     while(1){
         //printk("system awake %d \n",counter);
         k_msleep(1000);

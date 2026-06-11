@@ -8,7 +8,7 @@
 class UartConnection:public Transport{
     public: UartConnection(const device *iDev);
     int get_command(char *oBuf,int *oLen) override;
-    int send_response() override;
+    int send_response(char *iBuf,int iLen) override;
     private:
     const device *mDev;
 
