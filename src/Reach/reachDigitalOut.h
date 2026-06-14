@@ -8,6 +8,7 @@ class ReachDigitalOut: public ReachComponent{
     public:
         ReachDigitalOut();
         int add_component(DigitalOut *digitalOut);
+        const char * get_component_name(int *compNameLen) override;
     private:
         DigitalOut *digitalOutCollection[32];
         const int reachComponenetId = 1;

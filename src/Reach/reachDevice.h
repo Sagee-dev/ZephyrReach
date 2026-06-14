@@ -14,7 +14,10 @@ class reachDevice{
         int send_welcome_prompt();
     private: 
         Transport &mTransport;
-        ReachComponent reachCompotentcollection[32];
+        ReachComponent *reachCompotentcollection[32];
+        int numReachComponent = 0;
+        int reachDeviceList();
+
 
 
 

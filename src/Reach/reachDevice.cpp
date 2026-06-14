@@ -21,11 +21,26 @@ reachDevice::reachDevice(Transport &iTransport)
     printk("reach Device created \n");
 }
 
+int reachDevice::reachDeviceList(){
+    int compNameLen = 0;
+    for(int i =0; i<numReachComponent; i++){
+        memcpy(txBuf,reachCompotentcollection[i]->get_component_name(&compNameLen),compNameLen);
+        txBuf[compNameLen] = '\n';
+        send_response(txBuf,compNameLen);
+    }
+    return 0;
+}
+
 int reachDevice::process_comand(char *cmd,int comandLen){
     printk("Command is %s \n",cmd);
+    if((strcmp(cmd,"LIST") == 0 || strcmp(cmd,"list") ==0)){
+        //printk("LIST list comand recived\n");
+        reachDeviceList();
+    }
     return 0;
 }
 int reachDevice::add_component(ReachComponent *component){
+    reachCompotentcollection[numReachComponent++] = component;
     return 0;
 }
 
