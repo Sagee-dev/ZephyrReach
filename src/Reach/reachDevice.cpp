@@ -2,6 +2,7 @@
 #include <zephyr/kernel.h>
 
 #include "transport/transport.h"
+#include "reachDigitalOut.h"
 
 #define RX_BUF_MAX 256
 #define TX_BUF_MAX 256
@@ -27,6 +28,15 @@ int reachDevice::reachDeviceList(){
         memcpy(txBuf,reachCompotentcollection[i]->get_component_name(&compNameLen),compNameLen);
         txBuf[compNameLen] = '\n';
         send_response(txBuf,compNameLen);
+        for(int j = 0; j<reachCompotentcollection[i]->get_subcomponent_number(); j++){
+            ReachDigitalOut *rDO = static_cast<ReachDigitalOut *>(reachCompotentcollection[i]);
+            DigitalOut *dOut = rDO->get_component(j);
+            int comnamelen = 0;
+            memcpy(txBuf, dOut->get_pin_name(&comnamelen), comnamelen);
+            txBuf[comnamelen] = '\n';
+            send_response(txBuf, comnamelen);
+            comnamelen = 0;
+        }
     }
     return 0;
 }

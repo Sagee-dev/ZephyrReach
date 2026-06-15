@@ -7,6 +7,7 @@
 #include "zephyr/drivers/gpio.h"
 
 #define LED_NODE DT_ALIAS(led0)
+#define SWITCH_NODE DT_ALIAS(sw0)
 
 const struct device* uart_device;
 int main(){
@@ -20,10 +21,15 @@ int main(){
     ReachDigitalOut digitalOutComponent;
 
     static const struct gpio_dt_spec ledb = GPIO_DT_SPEC_GET(LED_NODE,gpios);
+    static const struct gpio_dt_spec swa = GPIO_DT_SPEC_GET(SWITCH_NODE,gpios);
 
-    DigitalOut led(&ledb);
+    DigitalOut led(&ledb,static_cast<const char *>("Led0"));
+    DigitalOut sw(&swa,static_cast<const char *>("Switch0"));
+    led.init();
+    sw.init();
 
     digitalOutComponent.add_component(&led);
+    digitalOutComponent.add_component(&sw);
     mainDevice.add_component(&digitalOutComponent);
 
     mainDevice.init();

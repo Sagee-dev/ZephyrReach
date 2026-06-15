@@ -10,5 +10,9 @@ class ReachComponent{
             *comNameLen = 2;
             return static_cast<const char *>("NA");
         }
+
+        virtual int get_subcomponent_number(){
+            return 0;
+        }
 };
 #endif
