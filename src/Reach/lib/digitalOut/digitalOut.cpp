@@ -12,7 +12,6 @@ int DigitalOut::init(){
         mPinName++;
         mPinNameLen++;
     }
-    printk("component Length = %d",mPinNameLen);
     mPinName -= mPinNameLen;
     
     return 0;

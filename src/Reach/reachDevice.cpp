@@ -44,8 +44,10 @@ int reachDevice::reachDeviceList(){
 int reachDevice::process_comand(char *cmd,int comandLen){
     printk("Command is %s \n",cmd);
     if((strcmp(cmd,"LIST") == 0 || strcmp(cmd,"list") ==0)){
-        //printk("LIST list comand recived\n");
         reachDeviceList();
+    }else{
+        snprintf(txBuf, sizeof(txBuf),"%s", "Invalid Command!");
+        send_response(txBuf, 15);
     }
     return 0;
 }
