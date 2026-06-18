@@ -22,12 +22,20 @@ reachDevice::reachDevice(Transport &iTransport)
     printk("reach Device created \n");
 }
 
+const char * get_instruction(){
+    return static_cast<const char *>("To list sub component use \"component_id list\" \r\n \
+        Ex: 01 list\n");
+}
+
 int reachDevice::reachDeviceList(){
     int compNameLen = 0;
     for(int i =0; i<numReachComponent; i++){
         memcpy(txBuf,reachCompotentcollection[i]->get_component_name(&compNameLen),compNameLen);
         txBuf[compNameLen] = '\n';
         send_response(txBuf,compNameLen);
+        snprintf(txBuf, 70, "%s", get_instruction());
+        send_response(txBuf, 70);
+        /*
         for(int j = 0; j<reachCompotentcollection[i]->get_subcomponent_number(); j++){
             ReachDigitalOut *rDO = static_cast<ReachDigitalOut *>(reachCompotentcollection[i]);
             DigitalOut *dOut = rDO->get_component(j);
@@ -36,16 +44,35 @@ int reachDevice::reachDeviceList(){
             txBuf[comnamelen] = '\n';
             send_response(txBuf, comnamelen);
             comnamelen = 0;
-        }
+        }*/
     }
     return 0;
 }
 
-int reachDevice::process_comand(char *cmd,int comandLen){
-    printk("Command is %s \n",cmd);
-    if((strcmp(cmd,"LIST") == 0 || strcmp(cmd,"list") ==0)){
+int reachDevice::process_comand(char *cmd,int comandLen)
+{
+
+    if((strcmp(cmd,"LIST") == 0 || strcmp(cmd,"list") ==0))
+    {
         reachDeviceList();
-    }else{
+    }else if(strstr(cmd,"list")!=NULL){
+        int subComponentListLen =reachCompotentcollection[0]->list_subcomponents(txBuf);
+        send_response(txBuf, subComponentListLen);
+        int instructionLen = reachCompotentcollection[0]->get_instruction(txBuf);
+        send_response(txBuf, instructionLen);
+
+    }else if(strstr(cmd,"write")!=NULL){
+        char a[2];
+        uint8_t comand;
+        uint8_t v;
+                memcpy(a,cmd,2);
+
+        unsigned int val = (a[0] - '0') * 10 + (a[1] - '0');
+        
+        printk("subcomponent %u",val);
+
+    }
+    else{
         snprintf(txBuf, sizeof(txBuf),"%s", "Invalid Command!");
         send_response(txBuf, 15);
     }

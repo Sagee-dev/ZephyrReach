@@ -34,3 +34,4 @@ const char * DigitalOut::get_pin_name(int *iComNameLen){
     return mPinName;
 }
 
+
