@@ -3,7 +3,8 @@
 
 DigitalOut::DigitalOut(const struct gpio_dt_spec *iPin,const char *iPinName)
 :mPin(iPin),
-mPinName(iPinName){}
+mPinName(iPinName){
+}
 
 int DigitalOut::init(){
 
@@ -23,9 +24,10 @@ int DigitalOut::read(int *oStatus){
     return 0;
 }
 
-int DigitalOut::write(int *icommand){
-
-    gpio_pin_set_dt(mPin,*icommand);
+int DigitalOut::write(int icommand){
+  
+    int ret = gpio_pin_set_dt(mPin,icommand);
+    printk("pin write complete!%d \n",ret);
     return 0;
 }
 

@@ -27,7 +27,7 @@ class ReachComponent{
             return 40;
         }
 
-        virtual int process_comand(uint8_t subComponent,uint8_t command,uint8_t value){
+        virtual int process_comand(int subComponent,int command,int value){
             return 0;
         }
         inline int getNumOfSubComponents(){

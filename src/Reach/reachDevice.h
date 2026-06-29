@@ -15,6 +15,7 @@ class reachDevice{
     private: 
         Transport &mTransport;
         ReachComponent *reachCompotentcollection[32];
+        int selectedComponentId = -1;
         int numReachComponent = 0;
         int reachDeviceList();
 

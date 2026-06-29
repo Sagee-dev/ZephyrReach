@@ -34,7 +34,9 @@ int ReachDigitalOut::list_subcomponents(char *subComponentList){
     return subComponentListLen;
 }
 
-int ReachDigitalOut::process_comand(uint8_t subComponent,uint8_t command,uint8_t value){
+int ReachDigitalOut::process_comand(int subComponent,int command,int value){
+    printk("pin write requested!");
+    digitalOutCollection[subComponent]->write(value);
     return 0;
 }
 

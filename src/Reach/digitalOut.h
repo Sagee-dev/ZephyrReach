@@ -9,7 +9,7 @@ class DigitalOut{
         DigitalOut(const struct gpio_dt_spec *iPin,const char * iPinName);
         int init();
         int read(int *oStatus) ;
-        int write(int *icommand);
+        int write(int icommand);
         const char *get_pin_name(int *icompNamelen);
     private:
         const struct gpio_dt_spec *mPin;

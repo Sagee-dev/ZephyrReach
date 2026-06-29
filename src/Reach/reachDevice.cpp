@@ -56,20 +56,24 @@ int reachDevice::process_comand(char *cmd,int comandLen)
     {
         reachDeviceList();
     }else if(strstr(cmd,"list")!=NULL){
-        int subComponentListLen =reachCompotentcollection[0]->list_subcomponents(txBuf);
+        char charComponentId[2];
+        memcpy(charComponentId,cmd,2);
+        selectedComponentId = ((charComponentId[0] - '0') * 10 + (charComponentId[1] - '0'))-1; 
+        int subComponentListLen =reachCompotentcollection[selectedComponentId]->list_subcomponents(txBuf);
         send_response(txBuf, subComponentListLen);
-        int instructionLen = reachCompotentcollection[0]->get_instruction(txBuf);
+        int instructionLen = reachCompotentcollection[selectedComponentId]->get_instruction(txBuf);
         send_response(txBuf, instructionLen);
 
     }else if(strstr(cmd,"write")!=NULL){
-        char a[2];
-        uint8_t comand;
-        uint8_t v;
-                memcpy(a,cmd,2);
+        char charSubComponentId[2];
+        char charVal;
+        memcpy(charSubComponentId,cmd,2);
+        memcpy(&charVal, cmd+(comandLen-1), 1);
 
-        unsigned int val = (a[0] - '0') * 10 + (a[1] - '0');
-        
-        printk("subcomponent %u",val);
+        unsigned int subComponentId = ((charSubComponentId[0] - '0') * 10 + (charSubComponentId[1] - '0'))-1;
+        unsigned int val = (charVal - '0');
+
+        reachCompotentcollection[selectedComponentId]->process_comand(subComponentId, 0, val);
 
     }
     else{
