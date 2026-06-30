@@ -34,14 +34,21 @@ int ReachDigitalOut::list_subcomponents(char *subComponentList){
     return subComponentListLen;
 }
 
-int ReachDigitalOut::process_comand(int subComponent,int command,int value){
-    printk("pin write requested!");
-    digitalOutCollection[subComponent]->write(value);
+int ReachDigitalOut::process_comand(int subComponent,int command,int *value){
+    switch(command){
+        case 0:
+            digitalOutCollection[subComponent]->write(value);
+            break;
+        case 1:
+            digitalOutCollection[subComponent]->read(value);
+            break;
+    }
     return 0;
 }
 
 int ReachDigitalOut::get_instruction(char *instructionBuf){
-    snprintf(instructionBuf, 55, "%s \n\r", "use \"component_id write value \"\n\r \
-    EX 01 write 1");
-    return 54;
+    snprintf(instructionBuf, 89, "%s \n\r", "use \"component_id read/write value \n\r \
+    EX 01 write 1 \n\r \
+       01 read\"");
+    return 76;
     }

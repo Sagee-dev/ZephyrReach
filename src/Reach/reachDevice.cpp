@@ -71,9 +71,19 @@ int reachDevice::process_comand(char *cmd,int comandLen)
         memcpy(&charVal, cmd+(comandLen-1), 1);
 
         unsigned int subComponentId = ((charSubComponentId[0] - '0') * 10 + (charSubComponentId[1] - '0'))-1;
-        unsigned int val = (charVal - '0');
+        int val = (charVal - '0');
 
-        reachCompotentcollection[selectedComponentId]->process_comand(subComponentId, 0, val);
+        reachCompotentcollection[selectedComponentId]->process_comand(subComponentId, 0, &val);
+
+    }else if(strstr(cmd,"read")!=NULL){
+        char charSubComponentId[2];
+        memcpy(charSubComponentId,cmd,2);
+
+        unsigned int subComponentId = ((charSubComponentId[0] - '0') * 10 + (charSubComponentId[1] - '0'))-1;
+        int val = 5;
+
+        reachCompotentcollection[selectedComponentId]->process_comand(subComponentId, 1, &val);
+        printk("Read %d vale: %d \n",subComponentId,val);
 
     }
     else{

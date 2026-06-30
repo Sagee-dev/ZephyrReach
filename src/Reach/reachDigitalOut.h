@@ -13,7 +13,7 @@ class ReachDigitalOut: public ReachComponent{
         int get_subcomponent_number()override;
         int list_subcomponents(char *subComponentList)override;
         int get_instruction(char *instructionBuf)override;
-        int process_comand(int subComponent,int command,int value)override;
+        int process_comand(int subComponent,int command,int *value)override;
     private:
         DigitalOut *digitalOutCollection[32];
         const int reachComponenetId = 1;

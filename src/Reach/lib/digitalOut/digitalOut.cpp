@@ -24,11 +24,10 @@ int DigitalOut::read(int *oStatus){
     return 0;
 }
 
-int DigitalOut::write(int icommand){
+int DigitalOut::write(int *icommand){
   
-    int ret = gpio_pin_set_dt(mPin,icommand);
-    printk("pin write complete!%d \n",ret);
-    return 0;
+    int ret = gpio_pin_set_dt(mPin,*icommand);
+    return ret;
 }
 
 const char * DigitalOut::get_pin_name(int *iComNameLen){
